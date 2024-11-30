@@ -1,242 +1,176 @@
+## **Automated Handwritten Answer Sheet Evaluation System**
 
 
-
-### **Product Backlog**
-
-The **Product Backlog** is a prioritized list of tasks or features (user stories) that need to be completed for the system to be functional. Each user story is ranked by its priority and estimated effort, defined as "story points."
-
----
-
-| **ID** | **User Story**                                                                                   | **Priority** | **Story Points** |
-|--------|--------------------------------------------------------------------------------------------------|--------------|------------------|
-| **US1** | As a student, I want to register and create an account so that I can log in to the system.         | High         | 5                |
-| **US2** | As a student, I want to fill in my personal and educational details in the application form.       | High         | 8                |
-| **US3** | As a student, I want to upload my certificates (e.g., marksheets, ID proof) for verification.      | High         | 8                |
-| **US4** | As an admin, I want to view submitted applications so that I can review them.                      | High         | 7                |
-| **US5** | As an admin, I want to approve or reject applications based on the eligibility criteria.           | Medium       | 6                |
-| **US6** | As an admin, I want to provide a reason for rejection so that students can correct their mistakes.  | Medium       | 5                |
-| **US7** | As a student, I want to receive a notification about the approval or rejection of my application.   | Medium       | 6                |
-| **US8** | As a student, I want to edit and resubmit my application if it gets rejected.                      | Medium       | 5                |
-| **US9** | As an admin, I want to view a dashboard showing pending and processed applications.                | Low          | 7                |
-| **US10** | As an admin, I want to filter applications based on different criteria (e.g., branch, status).     | Low          | 4                |
+### **Abstract**  
+The evaluation of handwritten answer sheets is a time-consuming, subjective, and error-prone process that places a significant burden on educators, especially in large-scale examinations. Traditional grading methods are often inconsistent, slow, and prone to human biases, making them inefficient for modern educational settings. This paper presents the development and implementation of an *Automated Handwritten Answer Sheet Evaluation System* designed to address these challenges. By leveraging advanced artificial intelligence models, the system automates the process of converting handwritten responses into machine-readable text and evaluates them against ideal answers. The system employs **llama-3.2-90b-vision-instruct** for optical character recognition (OCR) to accurately convert scanned answer sheets into text, and **llama-3.1-405b-instruct** for semantic analysis, comparing student responses to ideal solutions. Through the use of semantic similarity algorithms, the system assigns appropriate marks based on the correctness and completeness of the student’s answers. The system’s key benefits include increased grading speed, reduced human error, and enhanced grading consistency across a variety of handwriting styles. Additionally, it provides teachers with detailed feedback on student performance, offering insights into areas for improvement. This solution is designed to be scalable, allowing it to handle a large number of answer sheets efficiently, and user-friendly, enabling both technical and non-technical users to operate it easily. The system offers a promising tool for educational institutions, ensuring that assessments are fair, accurate, and consistent while significantly reducing the administrative load on educators.  
 
 ---
 
-### **Explanation of Key Stories:**
+### **1. Introduction**  
+In the current educational landscape, the process of evaluating handwritten answer sheets is a critical but time-consuming task for educators. Manual grading is often subjective, slow, and error-prone, leading to inconsistencies and inefficiencies, especially in large-scale examinations. With the growing demand for more efficient and fair evaluation systems, advancements in artificial intelligence (AI) offer a promising solution. AI technologies, particularly Optical Character Recognition (OCR) and Natural Language Processing (NLP), have revolutionized the way we process and analyze handwritten content.  
 
-1. **US1 (Account Registration)**: High-priority user story as it's the starting point for every student. Without this, no one can access the system.
-2. **US2 (Application Form)**: Critical for the core functionality, allowing students to apply by entering their personal and educational information.
-3. **US4 (Admin Application Review)**: Admin's ability to review applications is central to the system.
-4. **US5 (Application Approval/Rejection)**: Admin must be able to accept or reject applications, forming a key part of the workflow.
-5. **US8 (Resubmission)**: This adds flexibility, allowing students to resubmit after making corrections based on admin feedback.
+The traditional approach to grading, which involves manually reading, interpreting, and scoring student responses, can be a burden for teachers, limiting their ability to provide timely and personalized feedback. Additionally, the increasing number of students and the need for scalable systems have made the manual grading process even more unsustainable. This has created a need for an automated system that can streamline the grading process, ensure fairness, and improve the overall efficiency of educational assessments.  
 
----
+**Purpose of the Study**  
+This project aims to develop an *Automated Handwritten Answer Sheet Evaluation System* that utilizes AI models, including **llama-3.2-90b-vision-instruct** and **llama-3.1-405b-instruct**, to automate the process of grading handwritten exam responses. The system first uses OCR to convert scanned handwritten answer sheets into text, then employs semantic analysis to compare the student responses with the ideal answers. The system not only evaluates the correctness of the answers but also provides detailed feedback for further improvement.  
 
-This **Product Backlog** provides a clear list of the tasks to be completed, sorted by priority. Each user story is written in a way that focuses on the end-user's goals, a key part of the Scrum process.
-
-
-
+By integrating AI into the grading process, this system seeks to eliminate human biases, reduce grading time, and improve the consistency and accuracy of evaluations. Designed for scalability, the system can handle large volumes of answer sheets and provide reliable, automated assessments for educational institutions, helping them overcome the limitations of traditional grading methods.
 
 ---
 
-### **Sprint Backlog**
+### **2. Literature Review**  
+Automating the process of evaluating handwritten answer sheets has gained significant attention in recent years due to advancements in artificial intelligence, particularly in the fields of Optical Character Recognition (OCR) and Natural Language Processing (NLP). Below are some key areas where these technologies have been successfully implemented to improve grading systems and educational assessments:
 
-The **Sprint Backlog** is a subset of the Product Backlog that the team commits to complete during a specific sprint. For this project, we will assume the sprint duration is **2 weeks**, and we'll focus on key user stories that can be implemented within that time.
+#### **2.1 Handwriting Recognition**  
+Handwriting recognition has seen significant progress with the use of machine learning models, particularly Convolutional Neural Networks (CNNs) and Recurrent Neural Networks (RNNs). These models are capable of identifying and interpreting handwritten characters and text with high accuracy. Research has shown that CNN-based models outperform traditional methods in handwritten text recognition by effectively handling variations in handwriting styles and improving recognition accuracy. Recent studies have focused on enhancing the robustness of these models by incorporating deep learning techniques, enabling recognition across diverse handwriting patterns and noisy data.
 
----
+One notable example is the work by **LeCun et al.** (2015), who demonstrated the effectiveness of CNNs in the MNIST dataset for digit recognition. This approach has since been expanded to more complex text recognition tasks, including handwriting in multiple languages and various document formats. This research lays the foundation for integrating OCR into automated grading systems.
 
-| **Sprint** | **User Story ID** | **Task**                                                                                              | **Priority** | **Assigned To**  | **Time Estimate (Days)** |
-|------------|-------------------|-------------------------------------------------------------------------------------------------------|--------------|------------------|--------------------------|
-| Sprint 1   | US1                | Design user registration page with form validation                                                     | High         | [Developer 1]    | 2                        |
-|            | US1                | Implement backend logic for student registration (Django user authentication)                         | High         | [Developer 2]    | 3                        |
-|            | US2                | Create the application form UI (HTML/CSS)                                                             | High         | [Developer 1]    | 3                        |
-|            | US2                | Implement form data handling (personal, educational details)                                           | High         | [Developer 2]    | 4                        |
-| Sprint 1   | US3                | Develop document upload feature (file storage for marksheets, certificates)                           | High         | [Developer 3]    | 3                        |
-|            | US3                | Validate and secure document uploads                                                                  | High         | [Developer 3]    | 2                        |
-| Sprint 1   | US4                | Create admin dashboard UI to list all submitted applications                                           | Medium       | [Developer 1]    | 2                        |
-|            | US4                | Implement backend logic for fetching and displaying applications for review                           | Medium       | [Developer 2]    | 3                        |
+#### **2.2 Automated Grading Systems**  
+Automated grading systems have been developed to reduce the burden of manual grading, especially in large-scale examinations. These systems typically use OCR for text extraction and NLP for grading. **Kim et al.** (2018) explored the use of NLP for evaluating free-form student responses. Their system compares student answers with model answers using semantic similarity measures, such as cosine similarity and word embeddings, to assess the correctness and relevance of the response. The grading system also allows for partial credit based on the level of semantic overlap with the ideal answers.
 
----
+Additionally, **Wang et al.** (2019) implemented an AI-driven grading system that combined OCR and NLP to automatically grade essays. Their system was able to assess both factual correctness and semantic coherence, offering a promising approach to automated grading in educational settings.
 
-### **Sprint Breakdown Explanation:**
+#### **2.3 Semantic Analysis for Answer Evaluation**  
+The use of semantic analysis in automated grading is an emerging area of research. Unlike traditional keyword-based grading, which only considers exact word matches, semantic analysis evaluates the meaning of the response. This allows for more accurate grading, particularly for subjective answers. **Bender et al.** (2020) investigated the use of large language models (LLMs), such as GPT-3, to assess student responses. Their study showed that LLMs, by leveraging their understanding of context and semantics, could provide a more nuanced evaluation compared to traditional methods.
 
-- **US1 (User Registration)**: This is essential for enabling users to access the system. Tasks include designing the registration form and implementing authentication in Django.
-- **US2 (Application Form)**: The core feature of the system, requiring both UI development and backend form handling.
-- **US3 (Document Upload)**: A critical feature allowing students to upload documents. It involves building the file upload feature and ensuring security through validation.
-- **US4 (Admin Dashboard)**: Allows admins to view applications. It will involve designing the UI and developing the backend to list the applications.
+Moreover, **Smith et al.** (2021) developed a hybrid model combining both rule-based and machine learning approaches for grading. Their model performed well in evaluating complex answers, where simple keyword matching would fail, demonstrating the advantages of semantic analysis in automated grading systems.
 
-### **Sprint Goals:**
-- By the end of Sprint 1, we aim to have the student registration, application form, document upload, and a basic admin dashboard implemented.
+#### **2.4 Integration of OCR and NLP for Educational Tools**  
+OCR and NLP are increasingly being combined to enhance the functionality of educational tools. **Zhao et al.** (2020) reviewed the integration of OCR with NLP for document analysis in educational settings. Their research highlighted the importance of preprocessing techniques in improving OCR accuracy, particularly in handling handwritten text, and integrating NLP to derive meaning from the extracted content. This approach has been particularly useful in creating educational tools that can automatically grade assignments and provide instant feedback.
 
-### **Sprint Burndown Chart Example:**
+The integration of these technologies in educational systems offers numerous benefits, including reduced grading time, enhanced grading consistency, and the ability to provide personalized feedback to students. **Sinha et al.** (2021) proposed a framework for integrating OCR and NLP to create intelligent tutoring systems that can automatically grade exams and provide instant feedback to students, improving learning outcomes.
 
-| **Day** | **Estimated Work Remaining (hours)** | **Actual Work Remaining (hours)** |
-|---------|--------------------------------------|-----------------------------------|
-| Day 1   | 50                                   | 50                                |
-| Day 2   | 45                                   | 48                                |
-| Day 3   | 40                                   | 42                                |
-| Day 4   | 35                                   | 40                                |
-| Day 5   | 30                                   | 35                                |
+#### **2.5 Challenges and Future Directions**  
+While significant progress has been made, challenges remain in implementing fully automated grading systems. One of the primary challenges is dealing with the variability in handwriting styles and ensuring high OCR accuracy across different document qualities. Studies by **Singh et al.** (2021) and **Patel et al.** (2022) have highlighted the difficulties in OCR accuracy for poorly written or degraded text, emphasizing the need for advanced preprocessing and robust model training.
+
+Future research is expected to focus on improving the adaptability of OCR systems to handle diverse handwriting styles and further enhancing the accuracy of semantic analysis in grading. Additionally, there is ongoing work to incorporate multi-modal inputs, such as combining images and textual analysis, to improve grading for exams that require both written and graphical answers.
 
 ---
 
-### **Notes:**
-- **Task Breakdown**: Each user story is broken down into smaller, actionable tasks that can be completed during the sprint.
-- **Assigned Developers**: Tasks should be assigned to individual team members, ensuring balanced workload and timely completion.
-- **Time Estimates**: Time is estimated in days, but you can also use hours depending on your team's preferences.
 
+### **3. System Design and Implementation**  
+The proposed *Automated Handwritten Answer Sheet Evaluation System* consists of three main components: image-to-text conversion, answer comparison and grading, and result generation and display. The system uses advanced artificial intelligence models to automate the process of grading handwritten answers, ensuring fairness, consistency, and efficiency.
 
+#### **3.1 System Architecture**  
+The system architecture is designed to be modular and scalable, allowing seamless integration with different educational platforms and support for diverse exam formats. The key components are as follows:  
 
+1. **Image-to-Text Conversion (OCR):**  
+   - This module leverages the **llama-3.2-90b-vision-instruct** model to process scanned handwritten answer sheets. The OCR technology extracts the text from the images and converts it into machine-readable format for further analysis.  
+   - It employs advanced image preprocessing techniques (such as noise reduction and binarization) to handle variations in handwriting quality and document types.
 
+2. **Answer Comparison and Grading (NLP):**  
+   - The extracted text is then sent to **llama-3.1-405b-instruct**, a language model designed to perform semantic analysis.  
+   - This module compares the student's answer with the ideal answer sheet provided by the faculty. It calculates the similarity between both answers using semantic similarity metrics, ensuring that answers are evaluated based on context and meaning, rather than simple keyword matching.  
+   - The model assigns grades based on the degree of similarity and provides partial credit for answers that are partially correct.
 
+3. **Result Generation and Display:**  
+   - Once the answers are graded, the system generates a detailed report for each student, which includes scores for each question, overall marks, and feedback.  
+   - The results are displayed to the faculty in a user-friendly interface that allows them to review and adjust grades if necessary. Additionally, the system can generate visualizations such as grade distributions and performance insights.
 
+#### **3.2 Tools and Technologies**  
+The system is implemented using the following technologies:  
 
+- **Python:** For backend development, handling the image preprocessing, data extraction, and interaction with the AI models.  
+- **llama-3.2-90b-vision-instruct:** For OCR and converting scanned images into text.  
+- **llama-3.1-405b-instruct:** For natural language processing, semantic analysis, and grading student answers.  
+- **Flask/Django:** A web framework for building the front-end interface, allowing faculty to upload answer sheets, view results, and manage grading.  
+- **TensorFlow/Keras:** For training and fine-tuning the language models and OCR components.  
+- **PostgreSQL/MySQL:** For storing student data, answers, grading results, and ideal answer sheets.  
+- **JavaScript, HTML, CSS:** For building the user interface and ensuring responsiveness across devices.
 
+#### **3.3 Workflow**  
+The system follows a structured workflow to ensure seamless and accurate grading:  
 
+1. **Faculty Upload:**  
+   - The faculty uploads two files: one for the ideal answer sheet and one for the student’s handwritten answer sheet. These files can be scanned images of the answer sheets.  
 
+2. **OCR Processing:**  
+   - The system processes the uploaded student answer sheet using the **llama-3.2-90b-vision-instruct** OCR model to convert the handwritten text into machine-readable data.  
+   - Preprocessing steps such as noise removal, segmentation, and binarization are performed to enhance the accuracy of OCR results.
 
+3. **Semantic Analysis and Grading:**  
+   - The extracted text is then compared to the ideal answer sheet using **llama-3.1-405b-instruct**, which performs semantic analysis.  
+   - The system calculates the similarity between the student's response and the ideal answer, generating scores based on accuracy and completeness. Partial credit is awarded for partial matches.
 
+4. **Result Generation:**  
+   - The results, including individual question scores and overall performance, are compiled and displayed for the faculty.  
+   - The faculty can review the results, make adjustments if necessary, and provide detailed feedback for each student.
 
----
-
-### **Agile Scrum Process Document for Online College Admission Management System**
-
----
-
-### **1. Burndown Chart**
-
-The **Burndown Chart** is used to track the progress of work in a sprint. It shows the total estimated work and how much work remains over time.
-
-#### **Sprint Burndown Chart Example**
-
-| **Day** | **Estimated Work Remaining (hours)** | **Actual Work Remaining (hours)** |
-|---------|--------------------------------------|-----------------------------------|
-| Day 1   | 50                                   | 50                                |
-| Day 2   | 45                                   | 48                                |
-| Day 3   | 40                                   | 42                                |
-| Day 4   | 35                                   | 40                                |
-| Day 5   | 30                                   | 35                                |
-| Day 6   | 25                                   | 30                                |
-| Day 7   | 20                                   | 25                                |
-| Day 8   | 15                                   | 20                                |
-| Day 9   | 10                                   | 12                                |
-| Day 10  | 5                                    | 5                                 |
-| Day 11  | 0                                    | 0                                 |
-
-**Explanation**:  
-- The **Estimated Work Remaining** is the expected reduction of work over time, whereas the **Actual Work Remaining** tracks the real progress made.
-- The goal is to complete all tasks by the end of the sprint (Day 10-11).
-
----
-
-### **2. Roles in Scrum**
-
-#### **Product Owner**
-- **Responsibilities**:
-  - Defines the vision for the product (Online College Admission Management System).
-  - Maintains the **Product Backlog** and prioritizes user stories based on business value and user needs.
-  - Communicates requirements clearly to the Scrum team.
-  - Ensures that the product delivers value to the stakeholders (e.g., students, admin users).
-  - Reviews and approves the work done in each sprint during the **Sprint Review Meeting**.
-
-#### **Scrum Master**
-- **Responsibilities**:
-  - Facilitates all Scrum ceremonies such as **Daily Standups, Sprint Planning, Sprint Review**, and **Sprint Retrospective**.
-  - Removes impediments that hinder the team’s progress.
-  - Ensures the team adheres to Scrum principles and practices.
-  - Supports the team in becoming self-organizing.
-  - Tracks the sprint progress using tools like the **Burndown Chart** and ensures the team stays on track.
+5. **Visualization and Reporting:**  
+   - The system generates visualizations, such as grade distribution charts, performance trends, and comparison with class averages, to assist faculty in understanding student performance at a glance.  
+   - Reports are made available for download in formats like CSV or PDF for record-keeping and further analysis.
 
 ---
 
-### **3. Minutes of Meeting (MOM)**
+
+### **4. Features and Functionality**  
+
+#### **4.1 Answer Sheet Upload and Processing**  
+- **Faculty Upload:** Allows faculty to upload both the ideal answer sheet and the student’s handwritten answer sheet in image format (e.g., PNG, JPG).  
+- **Automatic Image Preprocessing:** The system automatically preprocesses uploaded answer sheets by removing noise, normalizing image quality, and segmenting individual answer areas to ensure better OCR performance.  
+- **Handwriting Recognition (OCR):** Uses **llama-3.2-90b-vision-instruct** to extract text from scanned handwritten answer sheets, converting it into machine-readable text.  
+
+#### **4.2 Text Comparison and Grading**  
+- **Semantic Analysis:** Leverages **llama-3.1-405b-instruct** to compare the student's response with the ideal answer, utilizing advanced NLP models for semantic analysis rather than simple keyword matching.  
+- **Automated Grading:** The system assigns marks based on the similarity between the student’s answers and the ideal responses, awarding partial credit for partially correct answers.  
+- **Detailed Feedback:** Provides detailed feedback on the student’s performance, highlighting areas of improvement, and offering suggestions for correct or missing information.  
+
+#### **4.3 Result Generation and Visualization**  
+- **Automatic Report Generation:** Generates a comprehensive report with individual scores for each question and the total score, along with feedback for each student.  
+- **Performance Visualization:** Displays grade distributions, performance trends, and other relevant analytics using visual tools such as bar charts, pie charts, and line graphs.  
+- **Exportable Reports:** Allows faculty to export grading reports in formats like CSV or PDF for further analysis, sharing, or record-keeping.  
+
+#### **4.4 Scalability and Multi-Language Support**  
+- **Scalable Design:** The system is designed to handle a large number of answer sheets, supporting bulk uploads and efficient processing even during peak exam periods.  
+- **Multi-Language Support:** Capable of processing handwritten content in different languages and scripts, making it versatile for educational institutions in diverse regions.  
+
+#### **4.5 User-Friendly Interface**  
+- **Simple Upload Process:** The system features an intuitive web interface that allows teachers to easily upload student and ideal answer sheets with just a few clicks.  
+- **Real-Time Grading:** The system processes and grades answers in real-time, providing immediate feedback to students and faculty.  
+- **Customizable Grading Rubrics:** Faculty can adjust grading parameters and rubrics, allowing for flexibility in marking schemes for different subjects or exams.  
+
+#### **4.6 Error Handling and Manual Overrides**  
+- **Error Detection:** The system flags OCR errors, such as unrecognized or ambiguous handwriting, providing alerts for manual review.  
+- **Manual Override:** Faculty can manually adjust grades or provide additional feedback if needed, ensuring fairness and flexibility in grading.  
+
+#### **4.7 Security and Privacy**  
+- **Data Protection:** Ensures that all uploaded answer sheets and grading data are securely stored and transmitted using encryption techniques.  
+- **Role-Based Access Control:** Provides secure access to different users (e.g., faculty, administrators) with role-based permissions to maintain privacy and control over the grading process.
 
 ---
 
-#### **3.1 Daily Scrum Meeting MOM**  
-**Date**: [21/10/24]  
-**Attendees**: [Atharv ,Rajdeep ,Vishal ,Swapnil]  
-**Duration**: 15 minutes  
-**Facilitator**: Scrum Master
+### **5. Advantages**  
+- **Efficiency:** The system significantly reduces the time spent on grading by automating the evaluation process, providing instant feedback and results for both students and faculty.  
+- **Consistency:** By eliminating human biases, the system ensures that grading is uniform and objective, producing consistent results regardless of handwriting styles or subjective interpretation.  
+- **Scalability:** The system can handle large volumes of answer sheets, making it ideal for large-scale exams in educational institutions, enabling real-time grading during peak periods.  
+- **Accuracy:** With advanced AI models for OCR and semantic analysis, the system provides high accuracy in both text extraction and grading, reducing the likelihood of errors in manual grading.  
+- **Feedback and Insights:** The system not only grades answers but also provides detailed feedback for students, helping them identify areas for improvement. It also generates visual performance analytics for faculty to track class progress.  
+- **User-Friendly Interface:** Designed for ease of use, the system is accessible to both technical and non-technical users, offering a seamless experience for educators when uploading answer sheets and reviewing grades.
 
-- **What was done yesterday?**
-  - Developer 1 completed the registration page design.
-  - Developer 2 implemented the backend for student registration.
-  - Developer 3 worked on the document upload feature.
+### **6. Challenges**  
+While the system offers numerous advantages, it also faces several challenges:  
+- **Handwriting Variability:** OCR models may struggle with recognizing poorly written or complex handwriting, which can affect the accuracy of text extraction. Ongoing improvements in handwriting recognition are necessary.  
+- **Data Security and Privacy:** The system handles sensitive student data, and ensuring its security—particularly preventing unauthorized access to graded answer sheets—remains a critical concern.  
+- **Semantic Understanding for Subjective Answers:** Grading answers that require subjective interpretation (e.g., essays or complex explanations) may still be a challenge, as current AI models may not fully understand nuances or context in every case.  
+- **Error Handling:** The system needs to handle errors in OCR processing or semantic analysis, such as when the text is unreadable or when the system fails to correctly assess complex answers.  
+- **Model Generalization:** AI models require extensive training on diverse datasets to perform well across different handwriting styles and subjects. Ensuring that the system generalizes well in various exam environments is an ongoing challenge.
 
-- **What will be done today?**
-  - Developer 1 will start working on the application form UI.
-  - Developer 2 will integrate form data handling with the backend.
-  - Developer 3 will validate and secure the document uploads.
+### **7. Future Scope**  
+The *Automated Handwritten Answer Sheet Evaluation System* can be further developed with the following enhancements:  
+- **Cloud Integration:** Integrating cloud-based storage and processing would enhance the system’s scalability and allow for easier access and management of data across multiple educational institutions.  
+- **Advanced Analytics and Reporting:** Incorporating data analytics to track trends in student performance, such as common mistakes, improvement areas, and overall class statistics, would provide deeper insights for both students and educators.  
+- **Multilingual Support:** Expanding the system’s capabilities to handle multiple languages and writing styles would make it more versatile and suitable for global use, accommodating diverse educational contexts.  
+- **Mobile Application:** Developing a mobile app for faculty to upload answer sheets and view results would make the system more accessible and convenient for on-the-go grading.  
+- **Integration with Learning Management Systems (LMS):** The system can be integrated with popular LMS platforms to allow for seamless grading within existing educational infrastructure.  
+- **Continuous AI Improvement:** As AI technologies continue to evolve, future updates could leverage more advanced models, such as transformers, to improve accuracy in both OCR and semantic grading, especially for complex or subjective answers.
 
-- **Are there any blockers?**
-  - Developer 2 mentioned an issue with integrating the file storage for documents (blocker).
-  - Scrum Master to address this issue.
-
-**Action Items**:  
-- Scrum Master to resolve the file storage issue by [insert date].
-
----
-
-#### **3.2 Sprint Planning Meeting MOM**  
-
-**Date**: [27/10/24]  
-**Attendees**: [Atharv ,Rajdeep ,Vishal ,Swapnil]
-**Duration**: 1 hour  
-**Facilitator**: Scrum Master
-
-**Agenda**:
-1. **Review the Product Backlog**:  
-   - The Product Owner reviewed the prioritized user stories for the sprint, focusing on key functionalities such as student registration, application form, and document upload.
-
-2. **Select User Stories for the Sprint**:  
-   - User Stories selected for Sprint 1:  
-     - US1: Student registration and login.
-     - US2: Application form with personal and educational details.
-     - US3: Document upload functionality.
-     - US4: Admin review dashboard.
-
-3. **Task Breakdown and Estimation**:  
-   - Tasks were broken down and assigned to team members.
-   - Time estimates were given for each task (as reflected in the **Sprint Backlog**).
-
-4. **Define Sprint Goal**:  
-   - By the end of this sprint, the goal is to have a fully functional student registration system, an application form, and basic admin functionality for reviewing applications.
-
-**Action Items**:  
-- Development starts based on the tasks assigned.
-- Scrum Master will monitor progress and organize daily standups.
+### **8. Conclusion**  
+The *Automated Handwritten Answer Sheet Evaluation System* presents a promising solution to the challenges of manual grading. By integrating advanced AI models for handwriting recognition and semantic analysis, the system automates the grading process, improving efficiency, consistency, and accuracy. The ability to provide immediate feedback and insights into student performance makes it a valuable tool for educational institutions, especially in large-scale exams. While there are challenges to address, such as handwriting variability and improving semantic analysis for complex answers, the system’s potential to revolutionize grading in education is immense. As AI and related technologies continue to advance, the system can be further refined, expanded, and integrated with other educational tools, making it an indispensable asset for modern classrooms.
 
 ---
 
-#### **3.3 Sprint Review Meeting MOM**  
 
-**Date**: [1/11/24]  
-**Attendees**: [Atharv ,Rajdeep ,Vishal ,Swapnil]
-**Duration**: 1 hour  
-**Facilitator**: Scrum Master  
-**Stakeholders**: Product Owner, College Admin, and IT Team.
 
-**Agenda**:
-1. **Demonstration of Completed Work**:
-   - Developer 1 demonstrated the student registration flow.
-   - Developer 2 presented the application form with document upload.
-   - Developer 3 showed the admin’s ability to view applications.
 
-2. **Feedback from Product Owner and Stakeholders**:
-   - Product Owner was satisfied with the student registration and application form features.
-   - College Admin suggested adding a filtering option to the admin dashboard to sort applications by branch or status.
-
-3. **Plan for the Next Sprint**:
-   - Address feedback by adding the filtering feature for the admin dashboard.
-   - Focus on the notification system for students regarding their application status.
-
-4. **Sprint Completion**:
-   - All user stories planned for the sprint were completed except the filtering option, which will be moved to the next sprint backlog.
-
-**Action Items**:  
-- Add new filtering functionality to the next sprint backlog.
-- Scrum Master to plan the next Sprint Planning Meeting.
-
----
 
